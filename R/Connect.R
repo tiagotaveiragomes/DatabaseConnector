@@ -667,25 +667,17 @@ generateRandomString <- function(length = 20) {
 #' }
 #' @export
 disconnect <- function(connection) {
-  UseMethod("disconnect", connection)
+
 }
 
 #' @export
 disconnect.default <- function(connection) {
-  if (rJava::is.jnull(connection@jConnection)) {
-    warn("Connection is already closed")
-  } else {
-    unregisterWithRStudio(connection)
-  }
-  rJava::.jcall(connection@jConnection, "V", "close")
-  invisible(TRUE)
+
 }
 
 #' @export
 disconnect.DatabaseConnectorDbiConnection <- function(connection) {
-  DBI::dbDisconnect(connection@dbiConnection)
-  unregisterWithRStudio(connection)
-  invisible(TRUE)
+  
 }
 
 setPathToDll <- function() {
